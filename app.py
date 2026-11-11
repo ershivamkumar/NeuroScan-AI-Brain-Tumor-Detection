@@ -25,7 +25,11 @@ logger = logging.getLogger("neuroscan")
 st.set_page_config(page_title="NeuroScan AI", page_icon="🧠", layout="wide")
 
 APP_DIR = Path(__file__).resolve().parent
-MODEL_CANDIDATES = [APP_DIR / "outputs" / "mobilenetv2_best.keras", APP_DIR / "mobilenetv2_best.keras"]
+MODEL_CANDIDATES = [
+    APP_DIR / "outputs" / "mobilenetv2_best.keras",
+    APP_DIR / "mobilenetv2_best.keras",
+    APP_DIR / "outputs" / "mobilenetv2_final.keras",
+]
 IMG_SIZE = 150
 CLASS_NAMES = {0: "Brain Tumor", 1: "Healthy / No Tumor"}
 ALLOWED_TYPES = ["jpg", "jpeg", "png"]

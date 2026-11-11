@@ -1,150 +1,160 @@
-# Usage Guide — Brain Tumor Detection Using CNN-LSTM
+# NeuroScan AI — User Guide & Execution Manual
 
 ## 1. Project Overview
 
-This project focuses on detecting brain tumors from MRI images using deep learning. It uses a CNN-based model with MobileNetV2 for image feature extraction and an LSTM-based architecture as implemented in the project notebook.
+**NeuroScan AI** is an advanced deep learning framework and interactive diagnostic research prototype for detecting brain tumors from Magnetic Resonance Imaging (MRI) scans. The project benchmarks two primary neural network architectures:
+- **Transfer Learning with MobileNetV2**: High-accuracy deep convolutional feature extraction pretrained on ImageNet and fine-tuned for MRI scans (Achieved **94.44% Test Accuracy** and **98.57% ROC-AUC**).
+- **Hybrid CNN-LSTM Architecture**: Spatial feature extraction via multi-layer 2D convolutions cascaded into Long Short-Term Memory (LSTM) recurrent sequence modeling (Achieved **50.89% Test Accuracy** and **72.49% ROC-AUC**).
 
-The project also includes a Streamlit web application that allows users to upload an MRI image and view the model's prediction.
+The system integrates:
+- **Interactive Streamlit Web Dashboard**: Single-scan analysis and side-by-side comparison mode.
+- **Grad-CAM (Gradient-weighted Class Activation Mapping)**: Visual explainability highlighting anatomical regions influencing inference.
+- **Automated PDF Diagnostic Report Generation**: Structured clinical research summaries.
+- **CLI Inference Pipeline**: Fast, programmatic single-image and batch predictions via `inference.py`.
 
-## 2. Requirements
+---
 
-Before running the project, make sure you have:
+## 2. Prerequisites
 
-- Python 3.11 recommended
-- The required Python libraries listed in `requirements.txt`
-- The trained model file `mobilenetv2_best.keras`
-- The project source code and supporting files
+- **Operating System**: Windows 10/11, Ubuntu 20.04+, or macOS
+- **Python Version**: Python 3.10 or 3.11 recommended
+- **Hardware**: CPU supported; CUDA-capable GPU recommended for high-throughput batch evaluation
 
-## 3. Installation
+---
+
+## 3. Installation & Setup
 
 ### Step 1: Clone the Repository
 
-Open a terminal and run:
+Clone the project directly from GitHub:
 
 ```bash
-git clone https://github.com/chirayu08/Brain-Tumor-Detection-from-MRI-using-CNN-LSTM.git
+git clone https://github.com/ershivamkumar/NeuroScan-AI-Brain-Tumor-Detection.git
 ```
 
-### Step 2: Navigate to the Project Folder
+### Step 2: Navigate to Project Directory
 
 ```bash
-cd Brain-Tumor-Detection-from-MRI-using-CNN-LSTM
+cd NeuroScan-AI-Brain-Tumor-Detection
 ```
 
-### Step 3: Create a Virtual Environment (Recommended)
+### Step 3: Create & Activate Virtual Environment
 
-```bash
-python -m venv venv
+**Windows (PowerShell):**
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
 ```
 
-Activate the environment.
-
-**Windows:**
-
-```bash
-venv\Scripts\activate
+**Windows (Command Prompt):**
+```cmd
+python -m venv .venv
+.venv\Scripts\activate.bat
 ```
 
-**Linux/macOS:**
-
+**Linux / macOS:**
 ```bash
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
 ### Step 4: Install Dependencies
 
 ```bash
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-## 4. Model File Setup
+---
 
-Ensure that the trained model file named `mobilenetv2_best.keras` is available in one of the locations supported by the application:
+## 4. Model Weights Configuration
 
-- `outputs/mobilenetv2_best.keras`
-- `mobilenetv2_best.keras` in the project root
+Trained model weights are stored in the `outputs/` directory:
+- `outputs/mobilenetv2_best.keras` (Primary high-performing model: 94.44% accuracy)
+- `outputs/mobilenetv2_final.keras` (Full training checkpoint)
+- `outputs/best_model.keras` (CNN-LSTM benchmark model: 50.89% accuracy)
 
-The application must be able to find the model file before predictions can be performed.
+The application automatically locates weights in `outputs/` or the root workspace directory.
 
-**Note:** The trained model file may need to be downloaded or added separately if it is not included in the repository.
+---
 
 ## 5. Running the Application
 
-From the project directory, run:
+### Option A: Launch Interactive Streamlit Web UI
+
+Run the following command from the project root:
 
 ```bash
 streamlit run app.py
 ```
 
-Streamlit will provide a local URL in the terminal, usually:
+Streamlit will start a local web server (typically at `http://localhost:8501`). Open this URL in your web browser.
 
-```text
-http://localhost:8501
+#### Features in Streamlit Web UI:
+1. **Analyze MRI Tab**:
+   - Upload any JPG, JPEG, or PNG brain MRI scan.
+   - Click **Analyze MRI** to trigger inference.
+   - View predicted class (`Brain Tumor` or `Healthy / No Tumor`), confidence percentage, and comparative bar indicators.
+   - Inspect Grad-CAM heatmaps and overlays.
+   - Download a clinical research PDF report via **Download report (PDF)**.
+2. **Compare MRIs Tab**:
+   - Upload two separate MRI scans for independent, side-by-side comparative inspection.
+   - View dual class predictions and Grad-CAM activations side-by-side.
+
+### Option B: Command-Line Inference (CLI)
+
+Run predictions directly from the terminal without launching the web server:
+
+**Single Image Inference:**
+```bash
+python inference.py --image pred/pred1.jpg
 ```
 
-Open this URL in your browser to access the application.
+**Single Image Inference with Specific Model:**
+```bash
+python inference.py --image yes/y100.jpg --model outputs/mobilenetv2_best.keras
+```
 
-## 6. How to Use the Application
+**Batch Evaluation on a Folder:**
+```bash
+python inference.py --folder pred/ --output results.csv
+```
 
-1. Open the Streamlit application in your browser.
-2. Upload an MRI brain image using the image-upload option.
-3. Wait for the model to process the image.
-4. Review the predicted class displayed by the application.
-5. If available, inspect the Grad-CAM visualization to understand which image regions influenced the model's prediction.
-6. If available, generate or download the prediction report.
+### Option C: Jupyter Notebook Training & Experimentation
 
-## 7. Prediction Classes
-
-The application uses the following class mapping:
-
-| Class Index | Label |
-|---|---|
-| 0 | Brain Tumor |
-| 1 | Healthy |
-
-Always refer to the label displayed by the application and verify that the class mapping matches the trained model.
-
-## 8. Technologies Used
-
-- **Python** — Main programming language
-- **TensorFlow / Keras** — Deep learning model development and inference
-- **MobileNetV2** — Image feature extraction
-- **CNN-LSTM** — Model architecture used in the project
-- **Streamlit** — Interactive web application
-- **NumPy** — Numerical operations
-- **Pillow (PIL)** — Image processing and report generation
-- **OpenCV** — Image processing and computer vision
-- **Matplotlib and Seaborn** — Visualization
-- **Scikit-learn** — Model evaluation and machine learning utilities
-
-## 9. Troubleshooting
-
-### Missing Model File
-
-If the application cannot find the trained model, check that `mobilenetv2_best.keras` exists in one of the supported locations.
-
-### Missing Python Packages
-
-Install the dependencies again:
+To inspect the data pipeline, train architectures, or reproduce benchmark metrics:
 
 ```bash
-pip install -r requirements.txt
+jupyter notebook Brain_Tumor_Detection_CNN_LSTM.ipynb
 ```
 
-### Streamlit Command Not Found
+---
 
-Try running:
+## 6. Class Mapping Reference
 
-```bash
-python -m streamlit run app.py
-```
+| Class Index | Label | Meaning |
+|:---:|:---:|:---|
+| **0** | `Brain Tumor` | Positive detection of abnormal brain lesion/tumor |
+| **1** | `Healthy / No Tumor` | Scan shows no evidence of tumor tissue |
 
-### TensorFlow Installation Issues
+---
 
-Use a compatible Python version and install the TensorFlow version specified in `requirements.txt`.
+## 7. Troubleshooting
 
-## 10. Important Disclaimer
+### Issue: `ModuleNotFoundError: No module named 'reportlab'`
+- Run: `pip install reportlab` or reinstall `requirements.txt`.
 
-This project is intended for educational and research purposes only. Its predictions are not a substitute for professional medical advice, diagnosis, or treatment.
+### Issue: TensorFlow GPU Detection
+- If running on CUDA, ensure NVIDIA drivers (CUDA 12.x / cuDNN) are configured. For CPU-only execution, TensorFlow runs automatically without extra configuration.
 
-MRI images and predictions should be reviewed by qualified healthcare professionals. The model may produce incorrect predictions and should not be used as the sole basis for medical decisions.
+### Issue: Streamlit Port Already in Use
+- Run with a custom port:
+  ```bash
+  streamlit run app.py --server.port 8502
+  ```
+
+---
+
+## 8. Disclaimer
+
+NeuroScan AI is an educational and research prototype. Model outputs are computational estimations and do not constitute a certified medical diagnosis or clinical treatment plan. Always consult certified healthcare specialists for clinical interpretations.

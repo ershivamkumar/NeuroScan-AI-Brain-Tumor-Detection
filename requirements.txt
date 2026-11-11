@@ -1,23 +1,34 @@
-# Python 3.11 recommended
-# Main app dependencies
-streamlit>=1.36,<2.0
-tensorflow==2.15.1
-numpy>=1.23.5,<2.0
-Pillow>=10.0,<11.0
+# NeuroScan AI - Brain Tumor Detection Dependencies
+# Python 3.10 - 3.11 recommended
 
-# Notebook, preprocessing, training, and evaluation
-pandas>=1.5,<3.0
-scipy>=1.10,<2.0
-matplotlib>=3.7,<4.0
-seaborn>=0.12,<1.0
-scikit-learn>=1.2,<2.0
-opencv-python>=4.8,<5.0
-tqdm>=4.65,<5.0
+# Web Application & UI
+streamlit>=1.36.0,<2.0.0
 
-# Notebook environment (optional for running locally)
-jupyter>=1.0
-notebook>=6.5
-ipykernel>=6.25
-ipywidgets>=8.0
-h5py>=3.8
-PyYAML>=6.0
+# Deep Learning Framework
+tensorflow>=2.15.0,<2.16.0
+
+# Numerical & Data Processing
+numpy>=1.23.5,<2.0.0
+pandas>=1.5.0,<3.0.0
+scipy>=1.10.0,<2.0.0
+scikit-learn>=1.2.0,<2.0.0
+
+# Computer Vision & Image Processing
+Pillow>=10.0.0,<11.0.0
+opencv-python>=4.8.0,<5.0.0
+
+# PDF Report Generation
+reportlab>=4.0.0,<5.0.0
+
+# Visualization & Progress
+matplotlib>=3.7.0,<4.0.0
+seaborn>=0.12.0,<1.0.0
+tqdm>=4.65.0,<5.0.0
+
+# Notebook & Serialization Utilities
+jupyter>=1.0.0
+notebook>=6.5.0
+ipykernel>=6.25.0
+ipywidgets>=8.0.0
+h5py>=3.8.0
+PyYAML>=6.0.0

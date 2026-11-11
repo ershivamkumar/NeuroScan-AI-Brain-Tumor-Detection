@@ -1,21 +1,39 @@
-# Python environments
+# Python virtual environments
 .venv/
 venv/
 env/
+ENV/
+build/
+dist/
+*.egg-info/
 
-# Python cache
+# Python byte-code and cache
 __pycache__/
 *.py[cod]
+*$py.class
 
-# Secrets
-.env
-.env.*
-
-# Jupyter temporary files
+# Jupyter Notebook temporary files
 .ipynb_checkpoints/
 
-# Generated reports / temporary files
+# Environment variables & secrets
+.env
+.env.*
+*.pem
+*.key
+*.token
+
+# Generated PDF reports and temporary files
 *.pdf
 *.tmp
+*.bak
+*.swp
+*.log
+
+# Operating system files
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# IDE and editor settings
+.vscode/
+.idea/
