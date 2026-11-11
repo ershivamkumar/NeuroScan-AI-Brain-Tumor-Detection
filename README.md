@@ -441,8 +441,6 @@ jupyter notebook Brain_Tumor_Detection_CNN_LSTM.ipynb
 
 - **Shivam Kumar** ([@ershivamkumar](https://github.com/ershivamkumar)) — Lead Developer & Maintainer: Architectural optimization, Streamlit dashboard enhancements, Grad-CAM pipeline, CLI tool, PDF reporting, and documentation.
 - **Abhinav Kumar** ([@abhinavkr-dev](https://github.com/abhinavkr-dev)) — Collaborative Contributor: Model experimentation, training workflows, and baseline model development.
-- **Chirayu Srivastava** ([@chirayu08](https://github.com/chirayu08)) — Collaborative Contributor: Initial CNN-LSTM exploratory pipeline and notebook implementation.
-- **Ahmed Hamada** — Dataset Curator: Author of the [Br35H: Brain Tumor Detection 2020](https://www.kaggle.com/datasets/ahmedhamada0/brain-tumor-detection) dataset on Kaggle.
 
 ---
 
